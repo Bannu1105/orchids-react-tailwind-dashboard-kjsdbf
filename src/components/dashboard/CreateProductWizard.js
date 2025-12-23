@@ -2,16 +2,10 @@
 
 import React, { useState } from 'react'
 import { 
-  Search, 
   X, 
-  ChevronRight, 
-  ChevronLeft, 
+  Check, 
   Upload, 
-  Trash2,
-  Check,
-  AlertCircle,
-  Eye,
-  Megaphone
+  AlertCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -41,14 +35,14 @@ const availableVariants = [
   { id: '5', name: 'Zen Cotton Tee', sku: 'ZN-TSH-001', variant: 'Black / L' },
 ]
 
-export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void, onComplete?: (product: any) => void }) {
+export function CreateProductWizard({ onBack, onComplete }) {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSuccess, setIsSuccess] = useState(false)
   const [showCampaignDrawer, setShowCampaignDrawer] = useState(false)
-  const [selectedVariants, setSelectedVariants] = useState<any[]>([])
-  const [pricingStrategy, setPricingStrategy] = useState<'single' | 'variant'>('single')
+  const [selectedVariants, setSelectedVariants] = useState([])
+  const [pricingStrategy, setPricingStrategy] = useState('single')
 
-  const toggleVariant = (variant: any) => {
+  const toggleVariant = (variant) => {
     if (selectedVariants.find(v => v.id === variant.id)) {
       setSelectedVariants(selectedVariants.filter(v => v.id !== variant.id))
     } else {
@@ -103,7 +97,6 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
       case 1:
         return (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[500px]">
-            {/* Left: Inventory Search */}
             <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col h-full">
               <h3 className="font-semibold text-slate-900 mb-1">Inventory Search</h3>
               <p className="text-xs text-slate-500 mb-6">Select variants to group into one product.</p>
@@ -113,7 +106,7 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
                 <Button className="bg-[#084d54] hover:bg-[#063a40]">SEARCH</Button>
               </div>
 
-              <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
+              <div className="flex-1 overflow-y-auto space-y-3 pr-2">
                 {availableVariants.map((variant) => (
                   <div 
                     key={variant.id}
@@ -137,20 +130,17 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
               </div>
             </div>
 
-            {/* Right: Selected to Group */}
             <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col h-full">
               <h3 className="font-semibold text-slate-900 mb-1">Selected to Group ({selectedVariants.length})</h3>
               
               <div className="flex-1 flex flex-col items-center justify-center">
                 {selectedVariants.length === 0 ? (
                   <div className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-white rounded-2xl border border-dashed border-slate-300 flex items-center justify-center mx-auto">
-                      <div className="w-8 h-8 border border-slate-300 rounded" />
-                    </div>
+                    <div className="w-16 h-16 bg-white rounded-2xl border border-dashed border-slate-300 flex items-center justify-center mx-auto" />
                     <p className="text-slate-400 font-medium">No Variants Selected</p>
                   </div>
                 ) : (
-                  <div className="w-full flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar mt-4">
+                  <div className="w-full flex-1 overflow-y-auto space-y-3 pr-2 mt-4">
                     {selectedVariants.map((variant) => (
                       <div 
                         key={variant.id}
@@ -180,8 +170,7 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
       case 2:
         return (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[500px]">
-            {/* Left: Identity & Media */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col h-full space-y-6 overflow-y-auto custom-scrollbar">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col h-full space-y-6 overflow-y-auto">
               <div className="space-y-4">
                 <h3 className="font-semibold text-slate-900">Identity</h3>
                 <div className="space-y-2">
@@ -206,9 +195,8 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
               </div>
             </div>
 
-            {/* Right: Selected Items & Uploaded Images */}
             <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col h-full space-y-6">
-              <div className="flex-1 overflow-y-auto space-y-6 pr-2 custom-scrollbar">
+              <div className="flex-1 overflow-y-auto space-y-6 pr-2">
                 <div>
                   <h3 className="font-semibold text-slate-900 mb-4">Selected to Group ({selectedVariants.length})</h3>
                   <div className="space-y-3">
@@ -218,24 +206,6 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
                           <p className="font-semibold text-slate-900">{variant.name}</p>
                           <p className="text-xs text-slate-500">{variant.sku} • {variant.variant}</p>
                         </div>
-                        <button className="p-1.5 text-red-400 hover:text-red-500">
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-4">Uploaded Images</h3>
-                  <div className="space-y-3">
-                    {[1, 2].map((i) => (
-                      <div key={i} className="bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-4">
-                        <div className="w-12 h-12 bg-slate-100 rounded-lg" />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-slate-900">T-shirt.jpg</p>
-                        </div>
-                        <Button variant="outline" className="h-8 text-[10px] px-3 font-bold border-slate-200">MAP VARIANT</Button>
                         <button className="p-1.5 text-red-400 hover:text-red-500">
                           <X className="w-4 h-4" />
                         </button>
@@ -281,7 +251,7 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
               {pricingStrategy === 'single' ? (
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Product Title</label>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">MRP (₹)</label>
                     <Input placeholder="9999" className="bg-slate-50 border-none h-12" />
                   </div>
                   <div className="space-y-2">
@@ -309,7 +279,7 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
                     <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">MRP</div>
                     <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sale</div>
                   </div>
-                  <div className="max-h-[250px] overflow-y-auto custom-scrollbar">
+                  <div className="max-h-[250px] overflow-y-auto">
                     {selectedVariants.map((variant) => (
                       <div key={variant.id} className="px-6 py-4 grid grid-cols-3 gap-4 items-center border-b border-slate-50 last:border-none">
                         <div className="text-sm font-bold text-slate-900">{variant.variant}</div>
@@ -325,8 +295,7 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
         )
       case 4:
         return (
-          <div className="max-w-4xl mx-auto w-full space-y-8 py-4 h-[500px] overflow-y-auto custom-scrollbar">
-            {/* Warning Message */}
+          <div className="max-w-4xl mx-auto w-full space-y-8 py-4 h-[500px] overflow-y-auto">
             <div className="bg-white border border-red-100 rounded-[24px] p-6 flex items-center justify-between shadow-sm">
               <div className="flex gap-4">
                 <div className="w-1 h-full bg-red-500 rounded-full" />
@@ -341,7 +310,6 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
               <Button variant="outline" className="border-slate-200 text-slate-600 font-bold px-6">Fix</Button>
             </div>
 
-            {/* Summary Box */}
             <div className="bg-white rounded-[24px] border border-slate-200 p-8 space-y-8">
               <h3 className="font-bold text-slate-900 text-lg">Summary</h3>
               
@@ -352,7 +320,7 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Variants</p>
-                  <p className="font-bold text-slate-900">2</p>
+                  <p className="font-bold text-slate-900">{selectedVariants.length}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Price</p>
@@ -374,7 +342,6 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
   return (
     <main className="flex-1 overflow-y-auto bg-[#f8fafc] p-4 lg:p-8">
       <div className="max-w-[1200px] mx-auto space-y-8">
-        {/* Header */}
         <div>
           <div className="flex items-center gap-2 text-sm text-slate-500 mb-1">
             <span>Operations</span>
@@ -384,13 +351,9 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
           <h1 className="text-2xl font-bold text-slate-900">Create Product</h1>
         </div>
 
-        {/* Stepper */}
         {!isSuccess && (
           <div className="relative flex items-center justify-between max-w-4xl mx-auto px-4">
             <div className="absolute top-5 left-8 right-8 h-[2px] bg-slate-100 -z-10" />
-            <div className="absolute top-5 left-8 h-[2px] bg-[#084d54] -z-10 transition-all duration-300" 
-                 style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100 - 4}%` }} 
-            />
             
             {steps.map((step) => (
               <div key={step.id} className="flex flex-col items-center gap-3">
@@ -413,10 +376,8 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
           </div>
         )}
 
-        {/* Content */}
         {renderStep()}
 
-        {/* Footer */}
         {!isSuccess && (
           <div className="flex items-center justify-between pt-6">
             <div className="flex items-center gap-4">
@@ -456,22 +417,6 @@ export function CreateProductWizard({ onBack, onComplete }: { onBack: () => void
       </div>
 
       <AddToCampaignDrawer isOpen={showCampaignDrawer} onClose={() => setShowCampaignDrawer(false)} />
-
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #e2e8f0;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #cbd5e1;
-        }
-      `}</style>
     </main>
   )
 }

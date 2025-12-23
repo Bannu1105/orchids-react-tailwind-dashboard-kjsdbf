@@ -8,31 +8,13 @@ import {
   ChevronDown,
   Clock,
   TrendingUp,
-  Truck,
-  LucideIcon
+  Truck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Logo } from './Logo'
 
-interface SidebarProps {
-  activeItem?: string
-  onNavigate: (item: string) => void
-  isOpen: boolean
-  onClose: () => void
-}
-
-interface MenuItem {
-  name: string
-  icon: LucideIcon
-}
-
-interface Section {
-  title: string
-  items: MenuItem[]
-}
-
-export function Sidebar({ activeItem = 'Dashboard', onNavigate, isOpen, onClose }: SidebarProps) {
-  const sections: Section[] = [
+export function Sidebar({ activeItem = 'Dashboard', onNavigate, isOpen, onClose }) {
+  const sections = [
     {
       title: 'Operations',
       items: [

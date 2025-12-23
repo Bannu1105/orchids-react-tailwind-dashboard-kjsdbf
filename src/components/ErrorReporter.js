@@ -2,24 +2,18 @@
 
 import { useEffect, useRef } from "react";
 
-type ReporterProps = {
-  /*  ⎯⎯ props are only provided on the global-error page ⎯⎯ */
-  error?: Error & { digest?: string };
-  reset?: () => void;
-};
-
-export default function ErrorReporter({ error, reset }: ReporterProps) {
+export default function ErrorReporter({ error, reset }) {
   /* ─ instrumentation shared by every route ─ */
   const lastOverlayMsg = useRef("");
-  const pollRef = useRef<NodeJS.Timeout>();
+  const pollRef = useRef();
 
   useEffect(() => {
     const inIframe = window.parent !== window;
     if (!inIframe) return;
 
-    const send = (payload: unknown) => window.parent.postMessage(payload, "*");
+    const send = (payload) => window.parent.postMessage(payload, "*");
 
-    const onError = (e: ErrorEvent) =>
+    const onError = (e) =>
       send({
         type: "ERROR_CAPTURED",
         error: {
@@ -33,7 +27,7 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
         timestamp: Date.now(),
       });
 
-    const onReject = (e: PromiseRejectionEvent) =>
+    const onReject = (e) =>
       send({
         type: "ERROR_CAPTURED",
         error: {

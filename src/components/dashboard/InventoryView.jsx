@@ -300,13 +300,15 @@ export function InventoryView() {
                     <TableHead className="text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
-                  {filteredInventory.map((item, i) => (
-                    <TableRow key={i} className="hover:bg-slate-50/30 transition-colors">
-                      <TableCell className="text-center">
-                        <input type="checkbox" className="rounded border-slate-300 text-teal-600 focus:ring-teal-500" />
-                      </TableCell>
-                      <TableCell>
+                  <TableBody>
+                    {filteredInventory.map((item, i) => (
+                      <TableRow key={i} className="hover:bg-slate-50/30 transition-colors">
+                        <TableCell className="text-center">
+                          <div className="flex justify-center">
+                            <Checkbox className="border-slate-300 data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600" />
+                          </div>
+                        </TableCell>
+                        <TableCell>
                         <div className="flex flex-col">
                           <span className="text-sm font-semibold text-slate-900">{item.product}</span>
                           <span className="text-[11px] text-slate-400 uppercase font-medium">{item.brand}</span>

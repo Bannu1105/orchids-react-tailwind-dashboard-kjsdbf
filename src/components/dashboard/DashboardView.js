@@ -20,6 +20,7 @@ import {
   Calendar,
   Layers
 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export function DashboardView() {
   const stats = [
@@ -58,14 +59,14 @@ export function DashboardView() {
           <div className="hidden sm:block h-6 w-px bg-slate-200 mx-2" />
           
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[11px] font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+            <Button variant="outline" size="sm" className="flex-1 sm:flex-none gap-2 text-[11px] h-8">
               <Calendar className="w-3 h-3" />
               Last 7 Days
-            </button>
-            <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[11px] font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+            </Button>
+            <Button variant="outline" size="sm" className="flex-1 sm:flex-none gap-2 text-[11px] h-8">
               <Layers className="w-3 h-3" />
               Category
-            </button>
+            </Button>
           </div>
         </div>
       </div>

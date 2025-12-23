@@ -2,21 +2,13 @@
 
 import React, { useState } from 'react'
 import { 
-  ChevronLeft, 
   ChevronRight, 
-  Plus, 
-  MoreHorizontal,
-  ExternalLink,
-  Edit3,
-  Archive,
-  Megaphone
-} from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+  Button 
+} from '@/components/ui/button'
 import { AddToCampaignDrawer } from './AddToCampaignDrawer'
+import { cn } from '@/lib/utils'
 
-export function ProductDetailView({ product, onBack }: { product: any, onBack: () => void }) {
+export function ProductDetailView({ product, onBack }) {
   const [showCampaignDrawer, setShowCampaignDrawer] = useState(false)
 
   const media = [
@@ -36,12 +28,11 @@ export function ProductDetailView({ product, onBack }: { product: any, onBack: (
   return (
     <main className="flex-1 overflow-y-auto bg-[#f8fafc] p-4 lg:p-8">
       <div className="max-w-[1400px] mx-auto space-y-8">
-        {/* Header & Breadcrumbs */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-xs text-slate-400 font-bold">
               <button onClick={onBack} className="hover:text-[#084d54] transition-colors">Products</button>
-              <ChevronRight className="w-3 h-3" />
+              <span className="text-slate-300">/</span>
               <span className="text-slate-500">Essential Linen Shirt</span>
             </div>
             <h1 className="text-3xl font-bold text-slate-900">Essential Linen Shirt</h1>
@@ -65,7 +56,6 @@ export function ProductDetailView({ product, onBack }: { product: any, onBack: (
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left: Media Gallery */}
           <div className="lg:col-span-2 bg-white rounded-[32px] border border-slate-100 shadow-sm p-8 space-y-6">
             <h3 className="text-lg font-bold text-slate-900">Media</h3>
             <div className="grid grid-cols-3 gap-4">
@@ -80,7 +70,6 @@ export function ProductDetailView({ product, onBack }: { product: any, onBack: (
             </div>
           </div>
 
-          {/* Right: Info Cards */}
           <div className="space-y-6">
             <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm p-8 space-y-8">
               <div className="space-y-4">
@@ -106,7 +95,6 @@ export function ProductDetailView({ product, onBack }: { product: any, onBack: (
           </div>
         </div>
 
-        {/* Variants Table */}
         <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden p-8 space-y-8">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-bold text-slate-900">Variants (Read-Only)</h3>
@@ -140,7 +128,7 @@ export function ProductDetailView({ product, onBack }: { product: any, onBack: (
                         "text-sm font-bold",
                         variant.status === 'Low' ? "text-red-500" : "text-slate-900"
                       )}>
-                        {variant.stock} {variant.status === 'Low' && <span className="text-[10px] font-bold">(Low)</span>}
+                        {variant.stock} {variant.status === 'Low' && <span className="text-[10px] font-bold ml-1">(Low)</span>}
                       </span>
                     </td>
                     <td className="py-6 text-right">

@@ -19,6 +19,15 @@ import {
 import { CreateProductWizard } from './CreateProductWizard'
 import { ProductDetailView } from './ProductDetailView'
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 const products = [
   {
     id: 1,

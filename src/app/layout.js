@@ -1,6 +1,6 @@
 import "./globals.css";
 import { VisualEditsMessenger } from "orchids-visual-edits";
-import ErrorReporter from "../components/ErrorReporter";
+import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 
 export const metadata = {

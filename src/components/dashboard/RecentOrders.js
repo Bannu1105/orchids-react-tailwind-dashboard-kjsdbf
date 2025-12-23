@@ -2,72 +2,44 @@
 
 import React from 'react'
 import { MoreVertical, ExternalLink } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
-interface Order {
-  id: string
-  customer: string
-  product: string
-  amount: string
-  status: 'Delivered' | 'Processing' | 'Shipped' | 'Cancelled'
-  date: string
-}
-
-const orders: Order[] = [
-  { id: '#ORD-7234', customer: 'John Doe', product: 'Wireless Earbuds', amount: '₹ 2,499', status: 'Delivered', date: '2023-10-24' },
-  { id: '#ORD-7235', customer: 'Jane Smith', product: 'Smart Watch', amount: '₹ 5,999', status: 'Processing', date: '2023-10-24' },
-  { id: '#ORD-7236', customer: 'Robert Brown', product: 'Leather Wallet', amount: '₹ 1,299', status: 'Shipped', date: '2023-10-23' },
-  { id: '#ORD-7237', customer: 'Alice Wilson', product: 'Sunglasses', amount: '₹ 3,499', status: 'Delivered', date: '2023-10-23' },
+const orders = [
+  { id: 'ORD001', customer: 'John Doe', product: 'Cotton Tee', amount: '₹1,200', status: 'Delivered' },
+  { id: 'ORD002', customer: 'Jane Smith', product: 'Linen Pants', amount: '₹2,500', status: 'Pending' },
+  { id: 'ORD003', customer: 'Bob Wilson', product: 'Silk Scarf', amount: '₹800', status: 'Shipped' },
 ]
-
-const statusStyles: Record<Order['status'], string> = {
-  'Delivered': 'bg-emerald-50 text-emerald-600',
-  'Processing': 'bg-amber-50 text-amber-600',
-  'Shipped': 'bg-sky-50 text-sky-600',
-  'Cancelled': 'bg-rose-50 text-rose-600',
-}
 
 export function RecentOrders() {
   return (
-    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-sm font-bold text-slate-900">Recent Orders</h3>
-        <button className="text-[10px] font-bold text-[#f97316] hover:underline flex items-center gap-1">
-          View All <ExternalLink className="w-3 h-3" />
-        </button>
-      </div>
-      
-      <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b border-slate-100 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-              <th className="pb-3 px-2">Order ID</th>
-              <th className="pb-3 px-2">Customer</th>
-              <th className="pb-3 px-2">Amount</th>
-              <th className="pb-3 px-2">Status</th>
-              <th className="pb-3 px-2 text-right">Action</th>
-            </tr>
-          </thead>
-          <tbody className="text-[11px]">
-            {orders.map((order) => (
-              <tr key={order.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50 transition-colors group">
-                <td className="py-3 px-2 font-semibold text-slate-900">{order.id}</td>
-                <td className="py-3 px-2 text-slate-600">{order.customer}</td>
-                <td className="py-3 px-2 font-medium text-slate-900">{order.amount}</td>
-                <td className="py-3 px-2">
-                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${statusStyles[order.status]}`}>
-                    {order.status}
-                  </span>
-                </td>
-                <td className="py-3 px-2 text-right">
-                  <button className="p-1 text-slate-400 hover:text-slate-600 rounded-md transition-colors">
-                    <MoreVertical className="w-3 h-3" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <Card className="border-slate-200 shadow-sm h-full">
+      <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
+        <CardTitle className="text-sm font-semibold text-slate-800">Recent Orders</CardTitle>
+        <Button variant="ghost" size="icon" className="h-8 w-8">
+          <MoreVertical className="w-4 h-4 text-slate-400" />
+        </Button>
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className="divide-y divide-slate-100">
+          {orders.map((order) => (
+            <div key={order.id} className="p-3 hover:bg-slate-50 transition-colors flex items-center justify-between">
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-slate-900">{order.id}</span>
+                <span className="text-[10px] text-slate-500">{order.customer}</span>
+              </div>
+              <div className="text-right">
+                <p className="text-xs font-bold text-slate-900">{order.amount}</p>
+                <p className="text-[10px] text-slate-500">{order.status}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <Button variant="ghost" className="w-full text-[10px] h-8 text-teal-700 font-bold border-t border-slate-100 rounded-none">
+          View All Orders
+          <ExternalLink className="w-3 h-3 ml-1" />
+        </Button>
+      </CardContent>
+    </Card>
   )
 }

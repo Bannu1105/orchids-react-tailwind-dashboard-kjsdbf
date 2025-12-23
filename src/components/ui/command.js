@@ -1,6 +1,6 @@
 "use client"
 
-import * from "react"
+import * as React from "react"
 import { Command } from "cmdk"
 import { SearchIcon } from "lucide-react"
 

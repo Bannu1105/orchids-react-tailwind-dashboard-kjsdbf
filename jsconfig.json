@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["./src/*"]
+    },
+    "checkJs": false,
+    "jsx": "preserve"
   },
-  "include": ["src/**/*"]
+  "exclude": ["node_modules", ".next"]
 }

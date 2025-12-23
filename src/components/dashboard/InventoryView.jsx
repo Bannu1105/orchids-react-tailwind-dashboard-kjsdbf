@@ -284,11 +284,13 @@ export function InventoryView() {
             <div className="overflow-x-auto no-scrollbar">
               <Table className="min-w-[800px]">
                 <TableHeader className="bg-slate-50/50">
-                  <TableRow>
-                    <TableHead className="w-12 text-center">
-                      <input type="checkbox" className="rounded border-slate-300 text-teal-600 focus:ring-teal-500" />
-                    </TableHead>
-                    <TableHead className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Product</TableHead>
+                    <TableRow>
+                      <TableHead className="w-12 text-center">
+                        <div className="flex justify-center">
+                          <Checkbox className="border-slate-300 data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600" />
+                        </div>
+                      </TableHead>
+                      <TableHead className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Product</TableHead>
                     <TableHead className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">SKU</TableHead>
                     <TableHead className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Variant</TableHead>
                     <TableHead className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Avail. Stock</TableHead>

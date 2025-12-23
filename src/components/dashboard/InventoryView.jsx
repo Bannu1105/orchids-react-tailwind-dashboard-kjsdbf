@@ -342,15 +342,20 @@ export function InventoryView() {
               </Table>
             </div>
 
-            <div className="p-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between bg-white gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-500">Rows per page:</span>
-                <select className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-medium text-slate-600 outline-none">
-                  <option>05</option>
-                  <option>10</option>
-                  <option>20</option>
-                </select>
-              </div>
+              <div className="p-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between bg-white gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-500">Rows per page:</span>
+                  <Select defaultValue="05">
+                    <SelectTrigger className="w-[60px] h-8 bg-slate-50 border-slate-200 text-xs font-medium text-slate-600 outline-none">
+                      <SelectValue placeholder="05" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="05">05</SelectItem>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="20">20</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               
               <div className="flex items-center gap-1">
                 <Button variant="ghost" size="sm" className="text-[11px] font-medium text-slate-400 hover:text-slate-600 h-8">Prev</Button>

@@ -4,14 +4,7 @@ import React, { useState } from 'react'
 import { 
   Search, 
   Plus, 
-  Download, 
-  FileText, 
-  MoreHorizontal,
-  ChevronLeft,
-  ChevronRight,
-  Filter,
-  RefreshCw,
-  X
+  RefreshCw
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -23,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Badge } from '@/components/ui/badge'
 import { CreateProductWizard } from './CreateProductWizard'
 import { ProductDetailView } from './ProductDetailView'
 
@@ -82,7 +74,7 @@ const products = [
 
 export function ProductCatalogueView() {
   const [showCreateWizard, setShowCreateWizard] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState<any>(null)
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
   if (showCreateWizard) {
     return (
@@ -108,7 +100,6 @@ export function ProductCatalogueView() {
   return (
     <main className="flex-1 overflow-y-auto bg-[#f8fafc] p-4 lg:p-8">
       <div className="max-w-[1400px] mx-auto space-y-6">
-        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-sm text-slate-500 mb-1">
@@ -134,7 +125,6 @@ export function ProductCatalogueView() {
           </div>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {[
             { label: 'Total Products', value: '1240' },
@@ -150,7 +140,6 @@ export function ProductCatalogueView() {
           ))}
         </div>
 
-        {/* Filters */}
         <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-wrap items-center gap-4">
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -194,26 +183,12 @@ export function ProductCatalogueView() {
               </SelectContent>
             </Select>
 
-            <div className="flex items-center gap-2 px-2">
-              <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-                <div className="w-5 h-5 bg-green-100 flex items-center justify-center rounded text-green-700">
-                  <span className="text-[10px] font-bold">X</span>
-                </div>
-              </button>
-              <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-                <div className="w-5 h-5 bg-red-100 flex items-center justify-center rounded text-red-700">
-                  <span className="text-[10px] font-bold">P</span>
-                </div>
-              </button>
-            </div>
-
             <Button variant="ghost" className="text-orange-500 hover:text-orange-600 font-medium h-10 px-2">
               Clear All
             </Button>
           </div>
         </div>
 
-        {/* Table */}
         <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
@@ -227,15 +202,14 @@ export function ProductCatalogueView() {
                   <th className="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Status</th>
                 </tr>
               </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {products.map((product) => (
-                    <tr 
-                      key={product.id} 
-                      onClick={() => setSelectedProduct(product)}
-                      className="hover:bg-slate-50/50 transition-colors cursor-pointer group"
-                    >
-                      <td className="px-6 py-4">
-
+              <tbody className="divide-y divide-slate-50">
+                {products.map((product) => (
+                  <tr 
+                    key={product.id} 
+                    onClick={() => setSelectedProduct(product)}
+                    className="hover:bg-slate-50/50 transition-colors cursor-pointer group"
+                  >
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <img 
                           src={product.image} 
@@ -260,7 +234,6 @@ export function ProductCatalogueView() {
             </table>
           </div>
 
-          {/* Pagination */}
           <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
             <Select defaultValue="05">
               <SelectTrigger className="w-[80px] h-8 border-slate-200 text-slate-600 text-xs">
@@ -275,7 +248,7 @@ export function ProductCatalogueView() {
 
             <div className="flex items-center gap-2">
               <span className="text-xs text-slate-500 mr-2">Prev</span>
-              {[1, 2, 3, '...', 10].map((page, i) => (
+              {[1, 2, 3, 10].map((page, i) => (
                 <button
                   key={i}
                   className={cn(

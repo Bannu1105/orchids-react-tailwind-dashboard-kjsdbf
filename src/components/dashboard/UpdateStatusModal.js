@@ -80,7 +80,7 @@ export function UpdateStatusModal({ isOpen, onClose }) {
               Cancel
             </Button>
             <Button className="px-8 py-2.5 bg-[#084d54] text-white rounded-xl text-sm font-bold">
-              Mark as Packed
+              Mark
             </Button>
           </div>
         </div>

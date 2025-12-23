@@ -111,7 +111,7 @@ export function TransactionDetailsDrawer({ open, onOpenChange, transaction }) {
 
           <div className="p-6 border-t border-slate-100 bg-slate-50/50">
             <Button className="w-full bg-[#084d54] hover:bg-[#063a3f] text-white font-bold h-12 rounded-xl shadow-lg shadow-teal-900/10">
-              Mark as Reconciled
+              Mark
             </Button>
           </div>
         </div>

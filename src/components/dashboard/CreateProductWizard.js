@@ -396,7 +396,7 @@ export function CreateProductWizard({ onBack, onComplete }) {
                   variant="outline"
                   className="px-8 border-slate-200 text-slate-600 font-bold"
                 >
-                  Save as Draft
+                  Save
                 </Button>
               )}
               <Button 

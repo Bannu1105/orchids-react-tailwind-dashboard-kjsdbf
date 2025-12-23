@@ -95,7 +95,7 @@ const parseOrchidsId = (orchidsId) => {
   // The file path might contain colons, so we need to handle that
   const column = parseInt(parts.pop() || "0");
   const line = parseInt(parts.pop() || "0");
-  const filePath = parts.join(":"); // Rejoin the remaining parts as the file path
+  const filePath = parts.join(":"); // Rejoin the remaining parts file path
 
   if (isNaN(line) || isNaN(column)) return null;
 
@@ -237,7 +237,7 @@ const normalizeImageSrc = (input) => {
 const wrapMultiline = (text) => {
   if (text.includes("\n")) {
     const escaped = text.replace(/\n/g, "\\n");
-    // Wrap in {` ... `} so JSX will interpret it as a template literal
+    // Wrap in {` ... `} so JSX will interpret it template literal
     return `{\`${escaped}\`}`;
   }
   return text;

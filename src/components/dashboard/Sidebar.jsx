@@ -76,21 +76,22 @@ export function Sidebar({ activeItem = 'Dashboard', onNavigate, isOpen, onClose 
                   {section.items.map((item) => {
                     const isActive = activeItem === item.name;
                     return (
-                      <button
-                        key={item.name}
-                        onClick={() => onNavigate(item.name)}
-                        className={cn(
-                          "w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors group",
-                          isActive 
-                            ? "bg-[#f59e0b] text-[#084d54]" 
-                            : "text-white/80 hover:bg-white/10 hover:text-white"
-                        )}
-                      >
-                        <div className="flex items-center gap-3">
-                          <item.icon className={cn("w-4 h-4", isActive ? "text-[#084d54]" : "text-white/60 group-hover:text-white")} />
-                          <span>{item.name}</span>
-                        </div>
-                      </button>
+                        <Button
+                          key={item.name}
+                          onClick={() => onNavigate(item.name)}
+                          variant="ghost"
+                          className={cn(
+                            "w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors group h-auto",
+                            isActive 
+                              ? "bg-[#f59e0b] text-[#084d54] hover:bg-[#f59e0b]/90 hover:text-[#084d54]" 
+                              : "text-white/80 hover:bg-white/10 hover:text-white"
+                          )}
+                        >
+                          <div className="flex items-center gap-3">
+                            <item.icon className={cn("w-4 h-4", isActive ? "text-[#084d54]" : "text-white/60 group-hover:text-white")} />
+                            <span>{item.name}</span>
+                          </div>
+                        </Button>
                     );
                   })}
                 </div>

@@ -1,41 +1,50 @@
 "use client"
 
 import React from 'react'
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-interface Category {
-  name: string
-  value: number
-  color: string
-}
-
-const categories: Category[] = [
-  { name: 'Fashion & Apparel', value: 45, color: 'bg-indigo-500' },
-  { name: 'Electronics', value: 30, color: 'bg-emerald-500' },
-  { name: 'Home & Kitchen', value: 25, color: 'bg-amber-500' },
-  { name: 'Beauty & Personal Care', value: 20, color: 'bg-rose-500' },
-  { name: 'Accessories', value: 15, color: 'bg-sky-500' },
+const data = [
+  { name: 'Apparel', value: 400, color: '#084d54' },
+  { name: 'Electronics', value: 300, color: '#0d7c86' },
+  { name: 'Home', value: 300, color: '#14a8b5' },
+  { name: 'Accessories', value: 200, color: '#f59e0b' },
 ]
 
 export function SalesByCategory() {
   return (
-    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
-      <h3 className="text-sm font-bold text-slate-900 mb-6">Sales by Category</h3>
-      <div className="space-y-5">
-        {categories.map((cat) => (
-          <div key={cat.name} className="space-y-1.5">
-            <div className="flex justify-between items-center text-[10px] font-medium">
-              <span className="text-slate-600">{cat.name}</span>
-              <span className="text-slate-900">{cat.value}%</span>
+    <Card className="border-slate-200 shadow-sm h-full">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm font-semibold text-slate-800">Sales by Category</CardTitle>
+      </CardHeader>
+      <CardContent className="h-[250px] flex flex-col items-center justify-center">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              paddingAngle={5}
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+        <div className="flex flex-wrap justify-center gap-4 mt-2">
+          {data.map((item) => (
+            <div key={item.name} className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+              <span className="text-[10px] text-slate-500 font-medium">{item.name}</span>
             </div>
-            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-              <div 
-                className={`h-full ${cat.color} rounded-full transition-all duration-500`}
-                style={{ width: `${cat.value}%` }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

@@ -79,7 +79,6 @@ export function SalesFinanceView() {
   return (
     <main className="flex-1 overflow-y-auto bg-[#f8fafc] p-4 md:p-8">
       <div className="max-w-[1400px] mx-auto space-y-6 md:space-y-8">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900">Sales & Finance</h1>
@@ -96,7 +95,6 @@ export function SalesFinanceView() {
           </div>
         </div>
 
-        {/* Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="bg-transparent border-b border-slate-200 rounded-none w-full justify-start h-auto p-0 gap-4 md:gap-8 overflow-x-auto no-scrollbar">
             {['Overview', 'Transactions', 'Settlements', 'Refunds', 'Invoices', 'Taxes (GST)', 'Reports'].map((tab) => (
@@ -111,7 +109,6 @@ export function SalesFinanceView() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6 outline-none">
-            {/* Alert Banner */}
             <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-orange-600 border border-orange-100 shrink-0">
@@ -126,7 +123,6 @@ export function SalesFinanceView() {
               </Button>
             </div>
 
-            {/* KPI Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               <KpiCard title="Gross Sales" value="₹ 123.4k" trend="+12.5%" isUp />
               <KpiCard title="Net Sales" value="₹ 98.4k" trend="-8.5%" />
@@ -135,9 +131,7 @@ export function SalesFinanceView() {
               <KpiCard title="Refunds Pending" value="₹ 12,859" trend="-5.4%" />
             </div>
 
-            {/* Charts Section */}
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              {/* Revenue Trend */}
               <Card className="xl:col-span-2 border-slate-200/60 shadow-sm overflow-hidden">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-slate-50 mb-4 bg-slate-50/30">
                   <CardTitle className="text-base font-semibold text-slate-800">Revenue Trend</CardTitle>
@@ -185,7 +179,6 @@ export function SalesFinanceView() {
                 </CardContent>
               </Card>
 
-              {/* Payment Methods */}
               <Card className="border-slate-200/60 shadow-sm relative">
                 <CardHeader className="border-b border-slate-50 mb-4 bg-slate-50/30">
                   <CardTitle className="text-base font-semibold text-slate-800">Payment Methods</CardTitle>
@@ -224,9 +217,7 @@ export function SalesFinanceView() {
               </Card>
             </div>
 
-            {/* Tables Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Recent Transactions */}
               <Card className="border-slate-200/60 shadow-sm overflow-hidden">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-base font-semibold text-slate-800">Recent Transactions</CardTitle>
@@ -275,7 +266,6 @@ export function SalesFinanceView() {
                 </div>
               </Card>
 
-              {/* Recent Refunds */}
               <Card className="border-slate-200/60 shadow-sm overflow-hidden">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-base font-semibold text-slate-800">Recent Refunds</CardTitle>

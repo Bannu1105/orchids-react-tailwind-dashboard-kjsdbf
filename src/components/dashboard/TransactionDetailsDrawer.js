@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sheet"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export function TransactionDetailsDrawer({ open, onOpenChange, transaction }) {
   if (!transaction) return null
@@ -29,13 +30,9 @@ export function TransactionDetailsDrawer({ open, onOpenChange, transaction }) {
         <div className="h-full flex flex-col bg-white">
           <SheetHeader className="p-6 border-b border-slate-100 flex-row items-center justify-between space-y-0">
             <SheetTitle className="text-xl font-bold text-slate-800">Transaction Details</SheetTitle>
-            <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)} className="rounded-full">
-              <X className="w-5 h-5" />
-            </Button>
           </SheetHeader>
 
           <div className="flex-1 overflow-y-auto p-6 space-y-8">
-            {/* Summary */}
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">Transaction ID</p>
@@ -50,7 +47,6 @@ export function TransactionDetailsDrawer({ open, onOpenChange, transaction }) {
               </Badge>
             </div>
 
-            {/* Grid Stats */}
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                 <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-2">Method</p>
@@ -70,7 +66,6 @@ export function TransactionDetailsDrawer({ open, onOpenChange, transaction }) {
               </div>
             </div>
 
-            {/* Linked Order */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Linked Order</p>
@@ -85,7 +80,6 @@ export function TransactionDetailsDrawer({ open, onOpenChange, transaction }) {
               </div>
             </div>
 
-            {/* Activity Log */}
             <div className="space-y-6">
               <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Activity Log</p>
               <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
@@ -143,8 +137,4 @@ function TimelineItem({ title, time, user, isFirst, isSuccess }) {
       </div>
     </div>
   )
-}
-
-function cn(...inputs) {
-  return inputs.filter(Boolean).join(' ')
 }

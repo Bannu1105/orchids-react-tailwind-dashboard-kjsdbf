@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Logo } from './Logo'
+import { Button } from '@/components/ui/button'
 
 export function Sidebar({ activeItem = 'Dashboard', onNavigate, isOpen, onClose }) {
   const sections = [

@@ -18,6 +18,16 @@ import { OrderDetailsDrawer } from './OrderDetailsDrawer'
 import { ReturnsTable } from './ReturnsTable'
 import { ReturnDetailsDrawer } from './ReturnDetailsDrawer'
 import { ProcessRefundModal } from './ProcessRefundModal'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const ORDERS = [
   { id: 'ORD-7783-XJ', customer: 'Lokesh Jami', phone: '+91 790180 19515', quantity: '2 Items', amount: '₹ 3459.00', status: 'PLACED', date: '17 DEC 2023', time: '13:53' },
@@ -29,8 +39,8 @@ const ORDERS = [
 
 export function OrdersView() {
   const [activeTab, setActiveTab] = useState('All Orders')
-  const [selectedOrder, setSelectedOrder] = useState<any>(null)
-  const [selectedReturn, setSelectedReturn] = useState<any>(null)
+  const [selectedOrder, setSelectedOrder] = useState(null)
+  const [selectedReturn, setSelectedReturn] = useState(null)
   const [isOrderDrawerOpen, setIsOrderDrawerOpen] = useState(false)
   const [isReturnDrawerOpen, setIsReturnDrawerOpen] = useState(false)
   const [isRefundModalOpen, setIsRefundModalOpen] = useState(false)
@@ -47,7 +57,7 @@ export function OrdersView() {
     return matchesSearch && matchesStatus
   })
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'PLACED': return 'text-blue-500'
       case 'CONFIRMED': return 'text-teal-600'
@@ -58,12 +68,12 @@ export function OrdersView() {
     }
   }
 
-  const handleOrderClick = (order: any) => {
+  const handleOrderClick = (order) => {
     setSelectedOrder(order)
     setIsOrderDrawerOpen(true)
   }
 
-  const handleReturnClick = (returnItem: any) => {
+  const handleReturnClick = (returnItem) => {
     setSelectedReturn(returnItem)
     setIsReturnDrawerOpen(true)
   }
@@ -71,113 +81,95 @@ export function OrdersView() {
   return (
     <main className="flex-1 overflow-y-auto bg-[#f8fafc] p-4 lg:p-8">
       <div className="max-w-[1400px] mx-auto space-y-6">
-        {/* Header Section */}
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <span>Operations</span>
             <span>/</span>
             <span className="text-slate-900 font-medium">Orders</span>
           </div>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-2">
-              <div>
-                <h1 className="text-2xl font-bold text-[#084d54]">Order Management</h1>
-                <p className="text-sm text-slate-500">Track, process, ship, invoice, and manage returns/refunds.</p>
-              </div>
-              
-              <div className="relative w-full md:w-96">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input 
-                  type="text" 
-                  placeholder="Search orders, SKUs, Customers..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all shadow-sm"
-                />
-              </div>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-2">
+            <div>
+              <h1 className="text-2xl font-bold text-[#084d54]">Order Management</h1>
+              <p className="text-sm text-slate-500">Track, process, ship, invoice, and manage returns/refunds.</p>
             </div>
-
+            
+            <div className="relative w-full md:w-96">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Input 
+                placeholder="Search orders, SKUs, Customers..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-white border-slate-200 rounded-xl"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Filters and Search Table Section */}
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
           <div className="p-4 md:p-6 border-b border-slate-100 space-y-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="relative flex-1 min-w-[200px] md:max-w-xs">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input 
-                    type="text" 
-                    placeholder="Search by Product, SKU, Variant"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/10"
-                  />
-                </div>
-                
-                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-colors">
-                  <Calendar className="w-4 h-4" />
-                  <span className="hidden sm:inline">Last 7 Days</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button variant="outline" className="gap-2 text-slate-600">
+                <Calendar className="w-4 h-4" />
+                <span className="hidden sm:inline">Last 7 Days</span>
+                <ChevronDown className="w-4 h-4" />
+              </Button>
 
-                <select 
-                  className="px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-colors outline-none"
+              <Select defaultValue="all">
+                <SelectTrigger className="w-[160px]">
+                  <SelectValue placeholder="Payment: All" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Payment: All</SelectItem>
+                  <SelectItem value="paid">Paid</SelectItem>
+                  <SelectItem value="unpaid">Unpaid</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-[160px]">
+                  <SelectValue placeholder="Status: All" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All">Status: All</SelectItem>
+                  <SelectItem value="PLACED">Placed</SelectItem>
+                  <SelectItem value="CONFIRMED">Confirmed</SelectItem>
+                  <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <div className="flex items-center gap-2 md:ml-auto">
+                <Button variant="ghost" size="icon" className="text-slate-400 hover:text-green-600">
+                  <FileText className="w-5 h-5" />
+                </Button>
+                <Button variant="ghost" size="icon" className="text-slate-400 hover:text-red-500">
+                  <Download className="w-5 h-5" />
+                </Button>
+                <Button 
+                  variant="link"
+                  onClick={() => {
+                    setSearchQuery('')
+                    setStatusFilter('All')
+                  }}
+                  className="text-xs text-orange-500 font-bold"
                 >
-                  <option>Payment: All</option>
-                  <option>Paid</option>
-                  <option>Unpaid</option>
-                </select>
-
-                <select 
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-colors outline-none"
-                >
-                  <option value="All">Status: All</option>
-                  <option value="PLACED">Placed</option>
-                  <option value="CONFIRMED">Confirmed</option>
-                  <option value="CANCELLED">Cancelled</option>
-                </select>
-
-                <div className="flex items-center gap-2 md:ml-auto">
-                  <button className="p-2 text-slate-400 hover:text-green-600 transition-colors rounded-lg hover:bg-slate-50">
-                    <FileText className="w-5 h-5" />
-                  </button>
-                  <button className="p-2 text-slate-400 hover:text-red-500 transition-colors rounded-lg hover:bg-slate-50">
-                    <Download className="w-5 h-5" />
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setSearchQuery('')
-                      setStatusFilter('All')
-                    }}
-                    className="text-xs text-orange-500 font-bold hover:underline ml-2"
-                  >
-                    Clear All
-                  </button>
-                </div>
+                  Clear All
+                </Button>
               </div>
-
-
-            {/* Tabs */}
-            <div className="flex gap-8 border-b border-slate-100 overflow-x-auto scrollbar-hide">
-              {tabs.map(tab => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={cn(
-                    "pb-4 text-sm font-bold transition-all relative whitespace-nowrap",
-                    activeTab === tab 
-                      ? "text-[#084d54]" 
-                      : "text-slate-400 hover:text-slate-600"
-                  )}
-                >
-                  {tab}
-                  {activeTab === tab && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-teal-500 rounded-full" />
-                  )}
-                </button>
-              ))}
             </div>
+
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="bg-transparent border-none gap-8 h-auto p-0">
+                {tabs.map(tab => (
+                  <TabsTrigger
+                    key={tab}
+                    value={tab}
+                    className="rounded-none border-b-2 border-transparent data-[state=active]:border-teal-500 data-[state=active]:bg-transparent data-[state=active]:text-[#084d54] pb-4 px-0 font-bold text-sm"
+                  >
+                    {tab}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
           </div>
 
           <div className="bg-white">
@@ -195,7 +187,7 @@ export function OrdersView() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {ORDERS.map((order, i) => (
+                    {filteredOrders.map((order, i) => (
                       <tr 
                         key={i} 
                         className="hover:bg-slate-50/80 transition-colors cursor-pointer group"
@@ -251,33 +243,34 @@ export function OrdersView() {
             )}
           </div>
 
-          {/* Pagination */}
           <div className="p-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <div className="relative">
-                <select className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-600 appearance-none focus:outline-none focus:ring-2 focus:ring-teal-500/10 min-w-[60px]">
-                  <option>05</option>
-                  <option>10</option>
-                  <option>20</option>
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
-              </div>
+              <Select defaultValue="10">
+                <SelectTrigger className="w-[70px]">
+                  <SelectValue placeholder="10" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                </SelectContent>
+              </Select>
               <span className="text-xs text-slate-400">entries per page</span>
             </div>
 
             <div className="flex items-center gap-1">
-              <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors text-slate-400">
+              <Button variant="ghost" size="icon" className="text-slate-400">
                 <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#084d54] text-white text-xs font-bold">1</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-50 text-slate-600 text-xs font-bold transition-colors">2</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-50 text-slate-600 text-xs font-bold transition-colors">3</button>
-              <span className="text-slate-300 px-1 text-xs">...</span>
-              <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-50 text-slate-600 text-xs font-bold transition-colors">10</button>
-              <button className="flex items-center gap-1 px-3 py-1.5 ml-2 text-xs font-bold text-[#084d54] hover:bg-teal-50 rounded-lg transition-colors">
+              </Button>
+              <Button size="sm" className="w-8 h-8 bg-[#084d54] text-white">1</Button>
+              <Button variant="ghost" size="sm" className="w-8 h-8 text-slate-600 font-bold">2</Button>
+              <Button variant="ghost" size="sm" className="w-8 h-8 text-slate-600 font-bold">3</Button>
+              <span className="text-slate-300 px-1">...</span>
+              <Button variant="ghost" size="sm" className="w-8 h-8 text-slate-600 font-bold">10</Button>
+              <Button variant="ghost" className="gap-1 ml-2 text-[#084d54] font-bold">
                 Next
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>

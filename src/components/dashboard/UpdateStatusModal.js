@@ -3,15 +3,18 @@
 import React from 'react'
 import { X, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 
-interface UpdateStatusModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-export function UpdateStatusModal({ isOpen, onClose }: UpdateStatusModalProps) {
-  if (!isOpen) return null
-
+export function UpdateStatusModal({ isOpen, onClose }) {
   const steps = [
     { label: 'Confirmed', completed: true },
     { label: 'Packed', current: true },
@@ -20,19 +23,13 @@ export function UpdateStatusModal({ isOpen, onClose }: UpdateStatusModalProps) {
   ]
 
   return (
-    <div className="fixed inset-0 bg-black/40 z-[80] flex items-center justify-center p-4">
-      <div className="bg-white rounded-[32px] w-full max-w-xl shadow-2xl overflow-hidden relative">
-        <button 
-          onClick={onClose}
-          className="absolute right-6 top-6 p-2 text-slate-400 hover:text-slate-600"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-xl bg-white rounded-[32px] p-0 overflow-hidden border-none">
         <div className="p-8 md:p-10">
-          <h2 className="text-xl font-bold text-slate-900 mb-8">Update Order Status</h2>
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-slate-900 mb-8">Update Order Status</DialogTitle>
+          </DialogHeader>
 
-          {/* Stepper */}
           <div className="flex items-center justify-between mb-10 relative">
             <div className="absolute left-0 right-0 top-4 h-[2px] bg-slate-100 -z-10" />
             {steps.map((step, i) => (
@@ -56,38 +53,38 @@ export function UpdateStatusModal({ isOpen, onClose }: UpdateStatusModalProps) {
           </div>
 
           <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Package Count</label>
-              <input 
+            <div className="space-y-2 text-left">
+              <Label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Package Count</Label>
+              <Input 
                 type="number" 
                 defaultValue={1}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+                className="bg-slate-50 border-slate-200 rounded-xl"
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Packing Notes (Optional)</label>
-              <textarea 
-                rows={4}
+            <div className="space-y-2 text-left">
+              <Label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Packing Notes (Optional)</Label>
+              <Textarea 
                 placeholder="Add any specific instructions for packing..."
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 resize-none"
+                className="bg-slate-50 border-slate-200 rounded-xl min-h-[100px]"
               />
             </div>
           </div>
 
           <div className="flex items-center justify-end gap-3 mt-10">
-            <button 
+            <Button 
+              variant="ghost"
               onClick={onClose}
-              className="px-6 py-2.5 text-sm font-bold text-slate-500 hover:text-slate-700"
+              className="text-sm font-bold text-slate-500"
             >
               Cancel
-            </button>
-            <button className="px-8 py-2.5 bg-[#084d54] text-white rounded-xl text-sm font-bold hover:bg-[#063a3f]">
+            </Button>
+            <Button className="px-8 py-2.5 bg-[#084d54] text-white rounded-xl text-sm font-bold">
               Mark as Packed
-            </button>
+            </Button>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

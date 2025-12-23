@@ -2,32 +2,36 @@
 
 import React from 'react'
 import { X, AlertTriangle, ChevronDown } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-interface CancelOrderModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-export function CancelOrderModal({ isOpen, onClose }: CancelOrderModalProps) {
-  if (!isOpen) return null
-
+export function CancelOrderModal({ isOpen, onClose }) {
   return (
-    <div className="fixed inset-0 bg-black/40 z-[80] flex items-center justify-center p-4">
-      <div className="bg-white rounded-[32px] w-full max-w-xl shadow-2xl overflow-hidden relative">
-        <button 
-          onClick={onClose}
-          className="absolute right-6 top-6 p-2 text-slate-400 hover:text-slate-600"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-xl bg-white rounded-[32px] p-0 overflow-hidden border-none">
         <div className="p-8 md:p-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-500">
-              <AlertTriangle className="w-5 h-5" />
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-500">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <DialogTitle className="text-xl font-bold text-red-500">Cancel Order</DialogTitle>
             </div>
-            <h2 className="text-xl font-bold text-red-500">Cancel Order</h2>
-          </div>
+          </DialogHeader>
 
           <div className="p-4 bg-red-50 rounded-xl mb-8">
             <p className="text-sm text-red-700 leading-relaxed font-medium">
@@ -36,37 +40,43 @@ export function CancelOrderModal({ isOpen, onClose }: CancelOrderModalProps) {
           </div>
 
           <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Reason for Cancellation</label>
-              <button className="w-full flex items-center justify-between px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-400">
-                <span>Select a reason...</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
+            <div className="space-y-2 text-left">
+              <Label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Reason for Cancellation</Label>
+              <Select>
+                <SelectTrigger className="w-full bg-white border-slate-200 rounded-xl">
+                  <SelectValue placeholder="Select a reason..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="out-of-stock">Out of Stock</SelectItem>
+                  <SelectItem value="customer-request">Customer Request</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Notes</label>
-              <textarea 
-                rows={4}
+            <div className="space-y-2 text-left">
+              <Label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Notes</Label>
+              <Textarea 
                 placeholder="Add any additional notes about the cancellation..."
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 resize-none"
+                className="bg-slate-50 border-slate-200 rounded-xl min-h-[100px]"
               />
             </div>
           </div>
 
           <div className="flex items-center justify-end gap-3 mt-10">
-            <button 
+            <Button 
+              variant="ghost"
               onClick={onClose}
-              className="px-6 py-2.5 text-sm font-bold text-slate-500 hover:text-slate-700"
+              className="text-sm font-bold text-slate-500"
             >
               Back
-            </button>
-            <button className="px-8 py-2.5 bg-red-500 text-white rounded-xl text-sm font-bold hover:bg-red-600 shadow-lg shadow-red-200">
+            </Button>
+            <Button className="px-8 py-2.5 bg-red-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-red-200">
               Confirm Cancel
-            </button>
+            </Button>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

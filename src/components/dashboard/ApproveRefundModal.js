@@ -74,7 +74,7 @@ export function ApproveRefundModal({ open, onOpenChange }) {
                 <SelectContent className="rounded-xl border-slate-100 shadow-xl">
                   <SelectItem value="size-mismatch">Size Mismatch</SelectItem>
                   <SelectItem value="defective">Defective Item</SelectItem>
-                  <SelectItem value="not-as-described">Not/SelectItem>
+                  <SelectItem value="not-as-described">Not as described</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -181,59 +181,59 @@ export function OrdersView() {
             </Tabs>
           </div>
 
-          <div className="bg-white">
-            {activeTab === 'All Orders' && (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-slate-50/50">
-                      <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Order ID</th>
-                      <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Customer</th>
-                      <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center">Quantity</th>
-                      <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center">Amount</th>
-                      <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center">Status</th>
-                      <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-right">Placed On</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {filteredOrders.map((order, i) => (
-                      <tr 
-                        key={i} 
-                        className="hover:bg-slate-50/80 transition-colors cursor-pointer group"
-                        onClick={() => handleOrderClick(order)}
-                      >
-                        <td className="px-6 py-5">
-                          <span className="text-sm font-bold text-[#084d54] group-hover:text-teal-600 transition-colors">{order.id}</span>
-                        </td>
-                        <td className="px-6 py-5">
-                          <div className="flex flex-col">
-                            <span className="text-sm font-bold text-slate-900">{order.customer}</span>
-                            <span className="text-xs text-slate-400">{order.phone}</span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-5 text-center">
-                          <span className="text-sm text-slate-600">{order.quantity}</span>
-                        </td>
-                        <td className="px-6 py-5 text-center">
-                          <span className="text-sm font-bold text-slate-900">{order.amount}</span>
-                        </td>
-                        <td className="px-6 py-5 text-center">
-                          <span className={cn("text-[10px] font-bold tracking-widest uppercase", getStatusColor(order.status))}>
-                            {order.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-5 text-right">
-                          <div className="flex flex-col items-end">
-                            <span className="text-sm text-slate-900 font-medium">{order.date}</span>
-                            <span className="text-xs text-slate-400">{order.time}</span>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+            <div className="bg-white">
+              {activeTab === 'All Orders' && (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader className="bg-slate-50/50">
+                      <TableRow>
+                        <TableHead className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Order ID</TableHead>
+                        <TableHead className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Customer</TableHead>
+                        <TableHead className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center">Quantity</TableHead>
+                        <TableHead className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center">Amount</TableHead>
+                        <TableHead className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center">Status</TableHead>
+                        <TableHead className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-right">Placed On</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredOrders.map((order, i) => (
+                        <TableRow 
+                          key={i} 
+                          className="hover:bg-slate-50/80 transition-colors cursor-pointer group"
+                          onClick={() => handleOrderClick(order)}
+                        >
+                          <TableCell className="px-6 py-5">
+                            <span className="text-sm font-bold text-[#084d54] group-hover:text-teal-600 transition-colors">{order.id}</span>
+                          </TableCell>
+                          <TableCell className="px-6 py-5">
+                            <div className="flex flex-col">
+                              <span className="text-sm font-bold text-slate-900">{order.customer}</span>
+                              <span className="text-xs text-slate-400">{order.phone}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="px-6 py-5 text-center">
+                            <span className="text-sm text-slate-600">{order.quantity}</span>
+                          </TableCell>
+                          <TableCell className="px-6 py-5 text-center">
+                            <span className="text-sm font-bold text-slate-900">{order.amount}</span>
+                          </TableCell>
+                          <TableCell className="px-6 py-5 text-center">
+                            <span className={cn("text-[10px] font-bold tracking-widest uppercase", getStatusColor(order.status))}>
+                              {order.status}
+                            </span>
+                          </TableCell>
+                          <TableCell className="px-6 py-5 text-right">
+                            <div className="flex flex-col items-end">
+                              <span className="text-sm text-slate-900 font-medium">{order.date}</span>
+                              <span className="text-xs text-slate-400">{order.time}</span>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
 
             {activeTab === 'Returns' && (
               <ReturnsTable onReturnClick={handleReturnClick} />

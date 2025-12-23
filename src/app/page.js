@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Sidebar } from '@/components/dashboard/Sidebar'
-import { TopBar } from '@/components/dashboard/TopBar'
-import { DashboardView } from '@/components/dashboard/DashboardView'
-import { InventoryView } from '@/components/dashboard/InventoryView'
-import { SalesFinanceView } from '@/components/dashboard/SalesFinanceView'
-import { OrdersView } from '@/components/dashboard/OrdersView'
-import { ProductCatalogueView } from '@/components/dashboard/ProductCatalogueView'
+import { Sidebar } from '../components/dashboard/Sidebar'
+import { TopBar } from '../components/dashboard/TopBar'
+import { DashboardView } from '../components/dashboard/DashboardView'
+import { InventoryView } from '../components/dashboard/InventoryView'
+import { SalesFinanceView } from '../components/dashboard/SalesFinanceView'
+import { OrdersView } from '../components/dashboard/OrdersView'
+import { ProductCatalogueView } from '../components/dashboard/ProductCatalogueView'
 
 export default function DashboardPage() {
   const [activeItem, setActiveItem] = useState('Dashboard')

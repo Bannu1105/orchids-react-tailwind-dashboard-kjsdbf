@@ -3,19 +3,17 @@
 import React, { useState } from 'react'
 import { X, Download, FileText, Upload, Trash2, Info, Check, ChevronDown, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog"
+import { Button } from '@/components/ui/button'
 
-interface BulkUploadModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClose }) => {
+export function BulkUploadModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1)
-  const [file, setFile] = useState<File | null>(null)
+  const [file, setFile] = useState(null)
   const [isValidated, setIsValidated] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  if (!isOpen) return null
 
   const steps = [
     { id: 1, label: 'TEMPLATE' },
@@ -41,7 +39,7 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
     }
   }
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e) => {
     const uploadedFile = e.target.files?.[0]
     if (uploadedFile) {
       setFile(uploadedFile)
@@ -50,17 +48,14 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl w-full max-w-[800px] shadow-2xl overflow-hidden relative">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-[800px] bg-white rounded-2xl p-0 overflow-hidden border-none">
         <div className="p-6 pb-2">
           <div className="flex items-start justify-between">
             <div>
               <h2 className="text-xl font-bold text-slate-900">Bulk Stock Upload</h2>
               <p className="text-xs text-slate-500 mt-1">Import a CSV to add/update variant stock and reorder levels.</p>
             </div>
-            <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full transition-colors text-slate-400">
-              <X className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
@@ -89,7 +84,7 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
 
         <div className="p-8 min-h-[360px] max-h-[500px] overflow-y-auto">
           {isSubmitted ? (
-            <div className="flex flex-col items-center justify-center py-8 animate-in zoom-in-95 duration-500">
+            <div className="flex flex-col items-center justify-center py-8">
               <div className="grid grid-cols-4 gap-4 w-full mb-12">
                 {[
                   { label: 'TOTAL ROWS', value: '1,250' },
@@ -114,7 +109,7 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
           ) : (
             <>
               {step === 1 && (
-                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="space-y-6">
                   <div className="p-6 bg-white border border-slate-100 rounded-xl shadow-sm flex items-center justify-between group hover:border-teal-100 transition-colors">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center text-teal-600 group-hover:bg-teal-600 group-hover:text-white transition-all">
@@ -126,10 +121,10 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
                         <button className="text-[11px] text-teal-600 font-semibold mt-1 hover:underline">Download sample filled file</button>
                       </div>
                     </div>
-                    <button className="flex items-center gap-2 px-4 py-2 border border-[#084d54] text-[#084d54] rounded-lg text-xs font-bold hover:bg-teal-50 transition-colors">
+                    <Button variant="outline" className="gap-2 border-[#084d54] text-[#084d54] rounded-lg text-xs font-bold hover:bg-teal-50">
                       <Download className="w-4 h-4" />
                       Download Template
-                    </button>
+                    </Button>
                   </div>
 
                   <div className="p-4 bg-teal-50/50 rounded-xl border border-teal-50 flex gap-3">
@@ -147,7 +142,7 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
               )}
 
               {step === 2 && (
-                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="space-y-6">
                   {!file ? (
                     <div className="border-2 border-dashed border-slate-200 rounded-2xl p-12 flex flex-col items-center justify-center gap-4 hover:border-teal-300 hover:bg-teal-50/20 transition-all group cursor-pointer relative">
                       <input 
@@ -163,11 +158,11 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
                         <h3 className="text-sm font-bold text-slate-900">Drag & drop your CSV here</h3>
                         <p className="text-[11px] text-slate-400 mt-1 italic font-medium">or click to browse from your computer</p>
                       </div>
-                      <button className="mt-2 px-6 py-2 bg-slate-100 text-slate-600 rounded-lg text-[11px] font-bold hover:bg-slate-200">Browse Files</button>
+                      <Button variant="secondary" size="sm" className="mt-2 text-[11px] font-bold">Browse Files</Button>
                     </div>
                   ) : (
                     <div className="space-y-6">
-                      <div className="p-4 bg-white border border-slate-100 rounded-xl shadow-sm flex items-center justify-between animate-in zoom-in-95 duration-200">
+                      <div className="p-4 bg-white border border-slate-100 rounded-xl shadow-sm flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <div className="w-10 h-10 bg-teal-50 rounded flex items-center justify-center text-teal-600">
                             <FileText className="w-5 h-5" />
@@ -177,13 +172,13 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
                             <p className="text-[10px] text-slate-400 mt-0.5">{(file.size / 1024).toFixed(2)} KB • Uploaded just now</p>
                           </div>
                         </div>
-                        <button onClick={() => {setFile(null); setIsValidated(false)}} className="p-2 text-rose-400 hover:bg-rose-50 rounded-full transition-colors">
+                        <Button variant="ghost" size="icon" onClick={() => {setFile(null); setIsValidated(false)}} className="text-rose-400 hover:bg-rose-50 rounded-full">
                           <Trash2 className="w-4 h-4" />
-                        </button>
+                        </Button>
                       </div>
 
                       {isValidated && (
-                        <div className="p-5 bg-teal-50/50 border border-teal-100 rounded-xl animate-in slide-in-from-top-4 duration-300">
+                        <div className="p-5 bg-teal-50/50 border border-teal-100 rounded-xl">
                           <div className="flex items-start gap-3">
                             <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 shrink-0">
                               <Check className="w-4 h-4" />
@@ -211,22 +206,15 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
               )}
 
               {step === 3 && (
-                <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <h3 className="text-sm font-bold text-slate-900">Map Fields</h3>
                       <p className="text-[11px] text-slate-400">Match your CSV columns to the system inventory fields.</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                       <span className="text-[10px] text-slate-400">Treat unknown SKUs as:</span>
-                       <select className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-[10px] font-bold text-slate-600 outline-none">
-                         <option>Rejected Rows</option>
-                         <option>New Records</option>
-                       </select>
-                    </div>
                   </div>
 
-                  <div className="border border-slate-100 rounded-xl overflow-hidden">
+                  <div className="border border-slate-100 rounded-xl overflow-hidden text-sm">
                     <table className="w-full text-left">
                       <thead>
                         <tr className="bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
@@ -245,16 +233,13 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
                           <tr key={i} className="hover:bg-slate-50/30">
                             <td className="px-6 py-4 text-xs font-bold text-slate-700">{row.field}</td>
                             <td className="px-6 py-4">
-                              <span className="text-[10px] font-bold text-rose-500 uppercase">Required?</span>
+                              <span className="text-[10px] font-bold text-rose-500 uppercase">Required</span>
                             </td>
                             <td className="px-6 py-4">
-                              <div className="relative">
-                                <select className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 appearance-none focus:ring-1 focus:ring-teal-500 outline-none">
-                                  <option>{row.mapped}</option>
-                                  <option>Select Column</option>
-                                </select>
-                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
-                              </div>
+                              <select className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 outline-none">
+                                <option>{row.mapped}</option>
+                                <option>Select Column</option>
+                              </select>
                             </td>
                           </tr>
                         ))}
@@ -265,7 +250,7 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
               )}
 
               {step === 4 && (
-                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="space-y-6">
                   <div className="grid grid-cols-4 gap-4">
                     {[
                       { label: 'TOTAL ROWS', value: '1,250' },
@@ -283,7 +268,6 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
                   <div className="border border-slate-100 rounded-xl overflow-hidden">
                     <div className="bg-slate-50 px-6 py-3 border-b border-slate-100 flex items-center justify-between">
                        <h3 className="text-xs font-bold text-slate-900">Preview Changes (First 5 Rows)</h3>
-                       <span className="px-2 py-0.5 bg-slate-200 text-slate-500 text-[9px] font-bold rounded uppercase">Read Only</span>
                     </div>
                     <table className="w-full text-left">
                       <thead>
@@ -337,12 +321,13 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
         </div>
 
         <div className="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-          <button 
+          <Button 
+            variant="outline"
             onClick={isSubmitted ? onClose : step === 1 ? onClose : handleBack}
-            className="px-8 py-2.5 border border-slate-200 bg-white rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors shadow-sm"
+            className="px-8 py-2.5 bg-white rounded-lg text-xs font-bold text-slate-500 h-auto"
           >
             {isSubmitted ? 'Close' : step === 1 ? 'Cancel' : 'Back'}
-          </button>
+          </Button>
           
           {!isSubmitted && (
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -350,20 +335,20 @@ export const BulkUploadModal: React.FC<BulkUploadModalProps> = ({ isOpen, onClos
             </div>
           )}
 
-          <button 
+          <Button 
             onClick={isSubmitted ? onClose : handleNext}
             className={cn(
-              "px-10 py-2.5 rounded-lg text-xs font-bold transition-all shadow-md",
-              (isSubmitted || step === 4) ? "bg-[#084d54] text-white hover:bg-teal-900 shadow-teal-100" : 
+              "px-10 py-2.5 rounded-lg text-xs font-bold transition-all shadow-md h-auto",
+              (isSubmitted || step === 4) ? "bg-[#084d54] text-white hover:bg-teal-900" : 
               step === 2 && !file ? "bg-slate-200 text-slate-400 cursor-not-allowed" :
-              "bg-[#084d54] text-white hover:bg-teal-900 shadow-teal-100"
+              "bg-[#084d54] text-white hover:bg-teal-900"
             )}
             disabled={!isSubmitted && step === 2 && !file}
           >
             {isSubmitted ? 'DONE' : step === 4 ? 'SUBMIT' : 'NEXT'}
-          </button>
+          </Button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

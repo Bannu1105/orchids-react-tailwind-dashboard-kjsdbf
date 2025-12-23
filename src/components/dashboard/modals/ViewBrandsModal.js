@@ -2,18 +2,15 @@
 
 import React from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Button } from '@/components/ui/button'
 
-interface Brand {
-  name: string
-  icon: string
-}
-
-interface ViewBrandsModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-const brands: Brand[] = [
+const brands = [
   { name: 'HRX', icon: 'HRX' },
   { name: 'The Roadster', icon: 'Roadster' },
   { name: 'Bewakoof', icon: 'Bewakoof' },
@@ -25,25 +22,20 @@ const brands: Brand[] = [
   { name: 'ZARA', icon: 'ZARA' },
 ]
 
-export function ViewBrandsModal({ isOpen, onClose }: ViewBrandsModalProps) {
-  if (!isOpen) return null
-
+export function ViewBrandsModal({ isOpen, onClose }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
-      <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-        <div className="flex items-center justify-between px-8 py-6 border-b border-slate-100">
-          <h2 className="text-xl font-bold text-[#084d54]">View Brands</h2>
-          <button onClick={onClose} className="p-2 hover:bg-slate-50 rounded-full transition-colors">
-            <X className="w-5 h-5 text-slate-400" />
-          </button>
-        </div>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-md bg-white rounded-3xl p-0 overflow-hidden border-none">
+        <DialogHeader className="px-8 py-6 border-b border-slate-100">
+          <DialogTitle className="text-xl font-bold text-[#084d54]">View Brands</DialogTitle>
+        </DialogHeader>
 
         <div className="p-0">
           <div className="grid grid-cols-2 bg-slate-50/50 px-8 py-3 border-b border-slate-100">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Brand Name</span>
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider text-right">Brand Icon</span>
           </div>
-          <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+          <div className="max-h-[400px] overflow-y-auto">
             {brands.map((brand, i) => (
               <div key={i} className="grid grid-cols-2 px-8 py-4 border-b border-slate-50 items-center hover:bg-slate-50/30 transition-colors">
                 <span className="text-sm font-semibold text-slate-600">{brand.name}</span>
@@ -59,20 +51,20 @@ export function ViewBrandsModal({ isOpen, onClose }: ViewBrandsModalProps) {
 
         <div className="px-8 py-6 border-t border-slate-100 flex items-center justify-center gap-4">
           <div className="flex items-center gap-2">
-            <button className="text-[11px] font-medium text-slate-400 hover:text-slate-600 px-2 flex items-center gap-1">
-              <ChevronLeft className="w-3 h-3" /> Prev
-            </button>
-            <button className="w-6 h-6 flex items-center justify-center rounded bg-[#084d54] text-white text-[11px] font-bold">1</button>
-            <button className="w-6 h-6 flex items-center justify-center rounded text-slate-400 text-[11px] font-medium hover:bg-slate-50">2</button>
-            <button className="w-6 h-6 flex items-center justify-center rounded text-slate-400 text-[11px] font-medium hover:bg-slate-50">3</button>
-            <span className="text-slate-300 px-1">...</span>
-            <button className="w-6 h-6 flex items-center justify-center rounded text-slate-400 text-[11px] font-medium hover:bg-slate-50">10</button>
-            <button className="text-[11px] font-medium text-slate-600 hover:text-teal-700 px-2 flex items-center gap-1 font-bold">
-              Next <ChevronRight className="w-3 h-3" />
-            </button>
+            <Button variant="ghost" size="sm" className="text-[11px] font-medium text-slate-400 hover:text-slate-600 h-8">
+              <ChevronLeft className="w-3 h-3 mr-1" /> Prev
+            </Button>
+            <Button size="sm" className="w-6 h-6 rounded bg-[#084d54] text-white text-[11px] font-bold p-0">1</Button>
+            <Button variant="ghost" size="sm" className="w-6 h-6 rounded text-slate-400 text-[11px] font-medium hover:bg-slate-50 p-0">2</Button>
+            <Button variant="ghost" size="sm" className="w-6 h-6 rounded text-slate-400 text-[11px] font-medium hover:bg-slate-50 p-0">3</Button>
+            <span className="text-slate-300 px-1 text-[11px]">...</span>
+            <Button variant="ghost" size="sm" className="w-6 h-6 rounded text-slate-400 text-[11px] font-medium hover:bg-slate-50 p-0">10</Button>
+            <Button variant="ghost" size="sm" className="text-[11px] font-medium text-slate-600 hover:text-teal-700 h-8 font-bold">
+              Next <ChevronRight className="w-3 h-3 ml-1" />
+            </Button>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

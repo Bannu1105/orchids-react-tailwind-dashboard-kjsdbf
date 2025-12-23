@@ -30,13 +30,9 @@ export function ApproveRefundModal({ open, onOpenChange }) {
       <DialogContent className="max-w-xl p-0 overflow-hidden border-none rounded-2xl shadow-2xl">
         <DialogHeader className="px-8 py-6 border-b border-slate-100 flex-row items-center justify-between space-y-0 bg-white">
           <DialogTitle className="text-xl font-bold text-slate-800">Approve Refund</DialogTitle>
-          <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)} className="rounded-full">
-            <X className="w-5 h-5" />
-          </Button>
         </DialogHeader>
 
         <div className="p-8 space-y-8 bg-white">
-          {/* Order Summary */}
           <div className="bg-teal-50/30 border border-teal-100/50 rounded-xl p-4 space-y-3">
             <div className="flex items-center justify-between">
               <p className="text-[10px] uppercase font-bold text-teal-700/60 tracking-wider">Order #5530 Summary</p>
@@ -48,7 +44,6 @@ export function ApproveRefundModal({ open, onOpenChange }) {
             </div>
           </div>
 
-          {/* Form Fields */}
           <div className="space-y-6">
             <div className="space-y-3">
               <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Refund Type</label>

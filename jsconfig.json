@@ -4,8 +4,15 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowJs": true,
     "checkJs": false,
-    "jsx": "preserve"
+    "noEmit": true
   },
+  "include": ["src/**/*"],
   "exclude": ["node_modules", ".next"]
 }

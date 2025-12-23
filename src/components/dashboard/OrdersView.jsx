@@ -29,6 +29,15 @@ import {
 } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 const ORDERS = [
   { id: 'ORD-7783-XJ', customer: 'Lokesh Jami', phone: '+91 790180 19515', quantity: '2 Items', amount: '₹ 3459.00', status: 'PLACED', date: '17 DEC 2023', time: '13:53' },
   { id: 'ORD-7782-XJ', customer: 'Lokesh Jami', phone: '+91 790180 19515', quantity: '2 Items', amount: '₹ 3459.00', status: 'PLACED', date: '17 DEC 2023', time: '13:53' },

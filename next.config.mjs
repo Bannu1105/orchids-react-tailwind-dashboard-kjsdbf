@@ -20,25 +20,16 @@ const nextConfig = {
       },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, '../../'),
   eslint: {
     ignoreDuringBuilds: true,
   },
-    webpack: (config) => {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@': path.resolve(__dirname, 'src'),
-      };
-      return config;
-    },
-    turbopack: {
-      rules: {
-        "*.{js,jsx,tsx}": {
-          loaders: [loaderPath]
-        }
+  turbopack: {
+    rules: {
+      "*.{js,jsx}": {
+        loaders: [loaderPath]
       }
     }
+  }
 };
 
 export default nextConfig;
-// Orchids restart: 1766486833788

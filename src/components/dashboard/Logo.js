@@ -1,23 +1,17 @@
 import React from 'react'
+import Image from 'next/image'
 
-export function Logo({ className }) {
+export function Logo({ className = 'h-8 w-auto' }) {
   return (
-    <svg 
-      className={className} 
-      viewBox="0 0 100 30" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <text 
-        x="0" 
-        y="22" 
-        fontFamily="sans-serif" 
-        fontWeight="bold" 
-        fontSize="24" 
-        fill="#084d54"
-      >
-        ORCHIDS
-      </text>
-    </svg>
+    <div className={className}>
+      <Image
+        src="/logo.svg"
+        alt="Orchids Logo"
+        width={100}
+        height={30}
+        priority
+        className="h-full w-auto"
+      />
+    </div>
   )
 }
